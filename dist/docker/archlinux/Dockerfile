@@ -36,7 +36,9 @@ RUN sudo pacman -U /home/docker/systemtap_tmp/systemtap-git-2.7.1180.g4e0d00272-
 RUN su docker -c 'pacaur -S --needed --noprogressbar --noedit --noconfirm supervisor dpkg'
 RUN su docker -c 'pacaur -S --needed --noprogressbar --noedit --noconfirm boost'
 RUN su docker -c 'pacaur -S --needed --noprogressbar --noedit --noconfirm ninja'
-RUN su docker -c 'pacaur -S --needed --noprogressbar --noedit --noconfirm libantlr3c libyaml lz4 zlib snappy jsoncpp gnutls ninja ragel libaio crypto++ xfsprogs numactl hwloc libpciaccess libxml2 python-pyparsing lksctp-tools protobuf libunwind python-yaml yaml-cpp thrift'
+RUN su docker -c 'pacaur -S --needed --noprogressbar --noedit --noconfirm libantlr3c libyaml lz4 zlib \
+  snappy jsoncpp gnutls ninja ragel libaio crypto++ xfsprogs numactl hwloc libpciaccess libxml2 \
+  python-pyparsing lksctp-tools protobuf libunwind python-yaml yaml-cpp thrift'
 
 RUN cd /home/docker \
   && git clone https://github.com/scylladb/scylla \
