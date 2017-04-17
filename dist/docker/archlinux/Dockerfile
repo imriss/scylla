@@ -24,7 +24,7 @@ RUN cd /tmp \
   && cd systemtap_tmp \
   && wget https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=systemtap-git -O PKGBUILD \
   && sed -i -e 's=git://sourceware.org/git/systemtap.git=https://gitlab.com/fche/systemtap.git=g' PKGBUILD \
-  && makepkg -si \
+  && su docker -c 'makepkg -si' \
   && sudo pacman -U *.xz --noconfirm
 
 RUN su docker -c 'pacaur -S --needed --noprogressbar --noedit --noconfirm scylla supervisor'
