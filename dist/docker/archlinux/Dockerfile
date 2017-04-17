@@ -19,6 +19,14 @@ RUN chmod u+x /usr/sbin/aur.sh
 RUN chmod u+x /usr/sbin/add-aur
 RUN add-aur docker
 
+RUN cd /tmp \
+  && mkdir systemtap_tmp \ 
+  && cd systemtap_tmp \
+  && wget https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=systemtap-git -O PKGBUILD \
+  && sed -i -e 's=git://sourceware.org/git/systemtap.git=https://gitlab.com/fche/systemtap.git=g' PKGBUILD \
+  && makepkg -si \
+  && sudo pacman -U *.xz --noconfirm
+
 RUN su docker -c 'pacaur -S --needed --noprogressbar --noedit --noconfirm scylla supervisor'
 
 ADD scylla_bashrc /scylla_bashrc
