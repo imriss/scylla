@@ -45,8 +45,11 @@ RUN cd /home/docker \
   && cd scylla \
   && git submodule init \
   && git submodule update --init --recursive 
-  
-RUN pushd . \
+
+RUN su docker -c 'pacaur -S --needed --noprogressbar --noedit --noconfirm antlr3'
+
+RUN cd /home/docker \
+  && pushd . \
   && git clone --depth 1 https://github.com/antlr/antlr3.git \
   && cd antlr3 \
   && ls -la \
