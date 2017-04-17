@@ -19,7 +19,7 @@ RUN chmod u+x /usr/sbin/aur.sh
 RUN chmod u+x /usr/sbin/add-aur
 RUN add-aur docker
 
-RUN su docker -c 'cd /tmp' \
+RUN su docker -c 'cd /home/docker/' \
   && su docker -c 'mkdir systemtap_tmp' \ 
   && su docker -c 'cd systemtap_tmp' \
   && su docker -c 'wget https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=systemtap-git -O PKGBUILD' \
