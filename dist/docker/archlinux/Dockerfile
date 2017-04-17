@@ -29,6 +29,7 @@ RUN cd /home \
   && su docker -c 'wget https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=systemtap-git -O PKGBUILD' \
   && su docker -c 'sed -i -e 's=git://sourceware.org/git/systemtap.git=https://gitlab.com/fche/systemtap.git=g' PKGBUILD' \
   && su docker -c 'wget https://aur.archlinux.org/cgit/aur.git/plain/systemtap.install?h=systemtap-git -O systemtap.install' \
+  && pacman -S --needed --noconfirm libdaemon nspr avahi elfutils nss \
   && su docker -c 'makepkg -si' \
   && sudo pacman -U *.xz --noconfirm
 
