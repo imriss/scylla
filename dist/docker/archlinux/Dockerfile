@@ -33,7 +33,7 @@ RUN cd /home \
   && su docker -c 'makepkg -si' \
   && ls -la
 RUN sudo pacman -U /home/docker/systemtap_tmp/systemtap-git-2.7.1180.g4e0d00272-1-x86_64.pkg.tar --noconfirm \
-  && pacman -Rdd java-7-openjdk
+  && pacman -Rdd java-7-openjdk --noconfirm
 
 RUN su docker -c 'pacaur -S --needed --noprogressbar --noedit --noconfirm scylla supervisor dpkg'
 
