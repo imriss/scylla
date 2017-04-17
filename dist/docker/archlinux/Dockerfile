@@ -56,7 +56,8 @@ RUN su docker -c 'pacaur -S --needed --noprogressbar --noedit --noconfirm antlr3
 #  && cp include/* /usr/include/ \
 #  && popd 
 
-RUN ./configure.py --mode=release --with=scylla --disable-xen --static-stdc++ --static-boost --static \
+RUN cd /home/docker/scylla \
+  && ./configure.py --mode=release --with=scylla --disable-xen --static-stdc++ --static-boost --static \
   && ninja build/release/scylla -j1
 
 ADD scylla_bashrc /scylla_bashrc
