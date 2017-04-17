@@ -35,7 +35,7 @@ RUN sudo pacman -U /home/docker/systemtap_tmp/systemtap-git-2.7.1180.g4e0d00272-
 
 RUN su docker -c 'pacaur -S --needed --noprogressbar --noedit --noconfirm supervisor dpkg'
 RUN su docker -c 'pacaur -S --needed --noprogressbar --noedit --noconfirm boost'
-RUN su docker -c 'pacaur -S --needed --noprogressbar --noedit --noconfirm ninja-build'
+RUN su docker -c 'pacaur -S --needed --noprogressbar --noedit --noconfirm ninja'
 
 RUN cd /home/docker \
   && git clone https://github.com/scylladb/scylla \
