@@ -44,7 +44,7 @@ RUN cd /home/docker \
   && git clone https://github.com/scylladb/scylla \
   && cd scylla \
   && git submodule init \
-  && git submodule update --init --recursive \
+  && git submodule update --init --recursive 
   
 RUN pushd . \
   && git clone --depth 1 https://github.com/antlr/antlr3.git \
