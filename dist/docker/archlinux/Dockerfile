@@ -21,9 +21,7 @@ RUN add-aur docker
 
 RUN cd /home \
   && chown docker docker \
-  && ls -la \
   && cd docker \
-  && ls -la \
   && su docker -c 'mkdir systemtap_tmp' \ 
   && cd systemtap_tmp \
   && su docker -c 'wget https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=systemtap-git -O PKGBUILD' \
@@ -31,13 +29,20 @@ RUN cd /home \
   && su docker -c 'wget https://aur.archlinux.org/cgit/aur.git/plain/systemtap.install?h=systemtap-git -O systemtap.install' \
   && pacman -S --needed --noconfirm libdaemon nspr avahi elfutils nss \
   && su docker -c 'makepkg -si' \
-  && ls -la
 RUN sudo pacman -U /home/docker/systemtap_tmp/systemtap-git-2.7.1180.g4e0d00272-1-x86_64.pkg.tar --noconfirm \
   && su docker -c 'pacaur -S --needed --noprogressbar --noedit --noconfirm jre8-openjdk-headless jdk8-openjdk' \
-  && ls -la /usr/lib/jvm/ \
   && archlinux-java set java-8-openjdk/jre 
 
-RUN su docker -c 'pacaur -S --needed --noprogressbar --noedit --noconfirm scylla supervisor dpkg'
+RUN su docker -c 'pacaur -S --needed --noprogressbar --noedit --noconfirm supervisor dpkg'
+
+RUN cd /home/docker \
+  && git clone https://github.com/scylladb/scylla \
+  && cd scylla \
+  && git submodule init \
+  && git submodule update --init --recursive \
+  && ./configure.py --mode=release --with=scylla --disable-xen \
+  && ninja-build build/release/scylla -j1
+
 
 ADD scylla_bashrc /scylla_bashrc
 RUN cat /scylla_bashrc >> /etc/bashrc
