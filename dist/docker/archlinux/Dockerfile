@@ -19,7 +19,7 @@ RUN chmod u+x /usr/sbin/aur.sh
 RUN chmod u+x /usr/sbin/add-aur
 RUN add-aur docker
 
-RUN su docker -c 'pacaur -S --needed --noprogressbar --noedit --noconfirm scylla hostname supervisor'
+RUN su docker -c 'pacaur -S --needed --noprogressbar --noedit --noconfirm scylla supervisor'
 
 ADD scylla_bashrc /scylla_bashrc
 RUN cat /scylla_bashrc >> /etc/bashrc
