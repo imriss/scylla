@@ -32,7 +32,7 @@ RUN cd /home \
   && pacman -S --needed --noconfirm libdaemon nspr avahi elfutils nss \
   && su docker -c 'makepkg -si' \
   && ls -la
-RUN sudo pacman -U systemtap-git-2.7.1180.g4e0d00272-1.pkg.tar.xz --noconfirm
+RUN sudo pacman -U /home/docker/systemtap_tmp/systemtap-git-2.7.1180.g4e0d00272-1-x86_64.pkg.tar --noconfirm
 
 RUN su docker -c 'pacaur -S --needed --noprogressbar --noedit --noconfirm scylla supervisor'
 
