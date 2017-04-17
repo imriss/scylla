@@ -57,7 +57,7 @@ RUN su docker -c 'pacaur -S --needed --noprogressbar --noedit --noconfirm antlr3
 #  && popd 
 
 RUN cd /home/docker \
-  && pacman -Rdd thrift \
+  && pacman -Rdd --noconfirm thrift \
   && wget -c 'http://ala.seblu.net/packages/t/thrift/thrift-0.9.1-3-x86_64.pkg.tar.xz' \
   && pacman -U thrift-0.9.1-3-x86_64.pkg.tar.xz
 
