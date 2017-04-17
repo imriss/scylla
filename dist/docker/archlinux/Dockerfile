@@ -21,6 +21,9 @@ RUN add-aur docker
 
 RUN cd /home \
   && chown docker docker \
+  && ls -la \
+  && cd docker \
+  && ls -la \
   && su docker -c 'mkdir systemtap_tmp' \ 
   && cd systemtap_tmp \
   && su docker -c 'wget https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=systemtap-git -O PKGBUILD' \
