@@ -31,7 +31,7 @@ RUN cd /home \
   && su docker -c 'wget https://aur.archlinux.org/cgit/aur.git/plain/systemtap.install?h=systemtap-git -O systemtap.install' \
   && pacman -S --needed --noconfirm libdaemon nspr avahi elfutils nss \
   && su docker -c 'makepkg -si' \
-  && sudo pacman -U *.xz --noconfirm
+  && sudo pacman -U systemtap-git-2.7.1180.g4e0d00272-1-x86_64.pkg.tar.xz --noconfirm
 
 RUN su docker -c 'pacaur -S --needed --noprogressbar --noedit --noconfirm scylla supervisor'
 
