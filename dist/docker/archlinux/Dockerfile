@@ -45,9 +45,15 @@ RUN cd /home/docker \
   && cd scylla \
   && git submodule init \
   && git submodule update --init --recursive \
-  && ./configure.py --mode=release --with=scylla --disable-xen \
-  && ninja build/release/scylla -j1
+  
+RUN pushd . \
+  && git clone --depth 1 https://github.com/antlr/antlr3.git \
+  && cd antlr3 \
+  && cp include/* /usr/include/ \
+  && popd 
 
+RUN ./configure.py --mode=release --with=scylla --disable-xen \
+  && ninja build/release/scylla -j1
 
 ADD scylla_bashrc /scylla_bashrc
 RUN cat /scylla_bashrc >> /etc/bashrc
