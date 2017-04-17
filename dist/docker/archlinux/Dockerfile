@@ -28,6 +28,7 @@ RUN cd /home \
   && cd systemtap_tmp \
   && su docker -c 'wget https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=systemtap-git -O PKGBUILD' \
   && su docker -c 'sed -i -e 's=git://sourceware.org/git/systemtap.git=https://gitlab.com/fche/systemtap.git=g' PKGBUILD' \
+  && su docker -c 'wget https://aur.archlinux.org/cgit/aur.git/plain/systemtap.install?h=systemtap-git -O systemtap.install' \
   && su docker -c 'makepkg -si' \
   && sudo pacman -U *.xz --noconfirm
 
