@@ -48,15 +48,15 @@ RUN cd /home/docker \
 
 RUN su docker -c 'pacaur -S --needed --noprogressbar --noedit --noconfirm antlr3'
 
-RUN cd /home/docker \
-  && pushd . \
-  && git clone --depth 1 https://github.com/antlr/antlr3.git \
-  && cd antlr3 \
-  && ls -la \
-  && cp include/* /usr/include/ \
-  && popd 
+# RUN cd /home/docker \
+#  && pushd . \
+#  && git clone --depth 1 https://github.com/antlr/antlr3.git \
+#  && cd antlr3 \
+#  && ls -la \
+#  && cp include/* /usr/include/ \
+#  && popd 
 
-RUN ./configure.py --mode=release --with=scylla --disable-xen \
+RUN ./configure.py --mode=release --with=scylla --disable-xen --static-stdc++ --static-boost --static \
   && ninja build/release/scylla -j1
 
 ADD scylla_bashrc /scylla_bashrc
