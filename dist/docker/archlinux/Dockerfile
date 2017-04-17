@@ -49,6 +49,7 @@ RUN cd /home/docker \
 RUN pushd . \
   && git clone --depth 1 https://github.com/antlr/antlr3.git \
   && cd antlr3 \
+  && ls -la \
   && cp include/* /usr/include/ \
   && popd 
 
