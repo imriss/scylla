@@ -44,7 +44,7 @@ RUN cd /home/docker \
   && git submodule init \
   && git submodule update --init --recursive \
   && ./configure.py --mode=release --with=scylla --disable-xen \
-  && ninja-build build/release/scylla -j1
+  && ninja build/release/scylla -j1
 
 
 ADD scylla_bashrc /scylla_bashrc
