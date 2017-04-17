@@ -28,7 +28,7 @@ RUN cd /home \
   && su docker -c 'sed -i -e 's=git://sourceware.org/git/systemtap.git=https://gitlab.com/fche/systemtap.git=g' PKGBUILD' \
   && su docker -c 'wget https://aur.archlinux.org/cgit/aur.git/plain/systemtap.install?h=systemtap-git -O systemtap.install' \
   && pacman -S --needed --noconfirm libdaemon nspr avahi elfutils nss \
-  && su docker -c 'makepkg -si' \
+  && su docker -c 'makepkg -si' 
 RUN sudo pacman -U /home/docker/systemtap_tmp/systemtap-git-2.7.1180.g4e0d00272-1-x86_64.pkg.tar --noconfirm \
   && su docker -c 'pacaur -S --needed --noprogressbar --noedit --noconfirm jre8-openjdk-headless jdk8-openjdk' \
   && archlinux-java set java-8-openjdk/jre 
