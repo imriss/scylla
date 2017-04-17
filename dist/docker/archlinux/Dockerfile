@@ -34,6 +34,7 @@ RUN cd /home \
   && ls -la
 RUN sudo pacman -U /home/docker/systemtap_tmp/systemtap-git-2.7.1180.g4e0d00272-1-x86_64.pkg.tar --noconfirm \
   && su docker -c 'pacaur -S --needed --noprogressbar --noedit --noconfirm jre8-openjdk-headless' \
+  && ls -la /usr/lib/jvm/ \
   && archlinux-java set jre8-openjdk-headless 
 
 RUN su docker -c 'pacaur -S --needed --noprogressbar --noedit --noconfirm scylla supervisor dpkg'
