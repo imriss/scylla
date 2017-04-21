@@ -40,12 +40,6 @@ RUN su docker -c 'pacaur -S --needed --noprogressbar --noedit --noconfirm libant
   snappy jsoncpp gnutls ninja ragel libaio crypto++ xfsprogs numactl hwloc libpciaccess libxml2 \
   python-pyparsing lksctp-tools protobuf libunwind python-yaml yaml-cpp thrift'
 
-RUN cd /home/docker \
-  && git clone https://github.com/scylladb/scylla \
-  && cd scylla \
-  && git submodule init \
-  && git submodule update --init --recursive 
-
 RUN su docker -c 'pacaur -S --needed --noprogressbar --noedit --noconfirm antlr3'
 
 # RUN cd /home/docker \
@@ -61,8 +55,18 @@ RUN cd /home/docker \
   && wget -c 'http://ala.seblu.net/packages/t/thrift/thrift-0.9.1-3-x86_64.pkg.tar.xz' \
   && pacman -U --noconfirm thrift-0.9.1-3-x86_64.pkg.tar.xz
 
+RUN cd /home/docker \
+  && git clone https://github.com/scylladb/scylla \
+  && cd scylla \
+  && git submodule sync --recursive \
+  && git submodule update --init --recursive 
+  
+RUN cd /home/docker/scylla/seastar/fmt \
+  && wget https://github.com/fmtlib/fmt/commit/abbefd71666055daac9e14e78262620f9e845850.patch \
+  && git am < abbefd71666055daac9e14e78262620f9e845850.patch
+
 RUN cd /home/docker/scylla \
-  && ./configure.py --mode=release --with=scylla --disable-xen --static-stdc++ --static-boost --static \
+  && ./configure.py --mode=release --with=scylla --disable-xen --static-stdc++ --static-boost --static --cflags " -fvisibility=hidden" \
   && ninja build/release/scylla -j1
 
 ADD scylla_bashrc /scylla_bashrc
