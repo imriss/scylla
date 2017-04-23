@@ -56,7 +56,7 @@ RUN cd /home/docker \
   && pacman -U --noconfirm thrift-0.9.1-3-x86_64.pkg.tar.xz
 
 RUN cd /home/docker \
-  && git clone https://github.com/scylladb/scylla \
+  && git clone --depth=50 --branch=master https://github.com/scylladb/scylla \
   && cd scylla \
   && git submodule sync --recursive \
   && git submodule update --init --recursive 
@@ -66,7 +66,7 @@ RUN cd /home/docker/scylla/seastar/fmt \
   && git am < abbefd71666055daac9e14e78262620f9e845850.patch
 
 RUN cd /home/docker/scylla \
-  && ./configure.py --mode=release --with=scylla --disable-xen --static-stdc++ --static-boost --static --cflags " -fvisibility=hidden" \
+  && ./configure.py --mode=release --with=scylla --disable-xen --static-stdc++ --static-boost --static --cflags " -fvisibility=default" \
   && ninja build/release/scylla -j1
 
 ADD scylla_bashrc /scylla_bashrc
