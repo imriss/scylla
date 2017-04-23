@@ -56,6 +56,10 @@ RUN cd /home/docker \
   && pacman -U --noconfirm thrift-0.9.1-3-x86_64.pkg.tar.xz
 
 RUN cd /home/docker \
+  && git clone --depth=50 --branch=master https://github.com/antlr/antlr3 \
+  && cp antlr3/runtime/Cpp/include/* /usr/include/ 
+
+RUN cd /home/docker \
   && git clone --depth=50 --branch=master https://github.com/scylladb/scylla \
   && cd scylla \
   && git submodule sync --recursive \
