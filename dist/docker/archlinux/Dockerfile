@@ -67,7 +67,7 @@ RUN cd /home/docker/scylla/seastar/fmt \
   && git config user.email "imriss@ieee.org" \
   && git am < abbefd71666055daac9e14e78262620f9e845850.patch
 
-RUN find / -name "antlr3.hpp" 2>/dev/null
+RUN echo `find / -name 'antlr3.hpp' 2>/dev/null`
 
 RUN cd /home/docker/scylla \
   && ./configure.py --mode=release --with=scylla --disable-xen --static-stdc++ --static-boost --static --cflags " -fvisibility=default" \
