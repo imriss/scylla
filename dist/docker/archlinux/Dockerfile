@@ -59,6 +59,9 @@ RUN cd /home/docker \
   && git clone --depth=50 --branch=master https://github.com/antlr/antlr3 \
   && cp antlr3/runtime/Cpp/include/* /usr/include/ 
 
+# remerge later
+RUN su docker -c 'pacaur -S --needed --noprogressbar --noedit --noconfirm cmake'
+
 RUN cd /home/docker \
   && git clone --depth=50 --branch=master https://github.com/scylladb/scylla \
   && cd scylla \
