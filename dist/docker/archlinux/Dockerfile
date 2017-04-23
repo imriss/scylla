@@ -6,8 +6,8 @@ MAINTAINER Reza Farrahi <imriss@ieee.org>
 LABEL description="Scylla / Arch Linux"
 
 RUN  pacman -Syyu --noconfirm \
-	&& pacman -S findutils nano vi --needed --noconfirm \
-	&& pacman-db-upgrade \
+  && pacman -S findutils nano vi --needed --noconfirm \
+  && pacman-db-upgrade \
   && export editor=nano \
   && pacman -S --needed --noconfirm systemd python python-yaml wget 
   
@@ -29,38 +29,22 @@ RUN cd /home \
   && su docker -c 'wget https://aur.archlinux.org/cgit/aur.git/plain/systemtap.install?h=systemtap-git -O systemtap.install' \
   && pacman -S --needed --noconfirm libdaemon nspr avahi elfutils nss \
   && su docker -c 'makepkg -si' 
+
 RUN sudo pacman -U /home/docker/systemtap_tmp/systemtap-git-2.7.1180.g4e0d00272-1-x86_64.pkg.tar --noconfirm \
   && su docker -c 'pacaur -S --needed --noprogressbar --noedit --noconfirm jre8-openjdk-headless jdk8-openjdk' \
   && archlinux-java set java-8-openjdk/jre 
 
-RUN su docker -c 'pacaur -S --needed --noprogressbar --noedit --noconfirm supervisor dpkg'
-RUN su docker -c 'pacaur -S --needed --noprogressbar --noedit --noconfirm boost'
-RUN su docker -c 'pacaur -S --needed --noprogressbar --noedit --noconfirm ninja'
-RUN su docker -c 'pacaur -S --needed --noprogressbar --noedit --noconfirm libantlr3c libyaml lz4 zlib \
+RUN su docker -c 'pacaur -S --needed --noprogressbar --noedit --noconfirm supervisor dpkg \
+  boost ninja libantlr3c libyaml lz4 zlib \
   snappy jsoncpp gnutls ninja ragel libaio crypto++ xfsprogs numactl hwloc libpciaccess libxml2 \
-  python-pyparsing lksctp-tools protobuf libunwind python-yaml yaml-cpp thrift'
-
-RUN su docker -c 'pacaur -S --needed --noprogressbar --noedit --noconfirm antlr3'
-
-# RUN cd /home/docker \
-#  && pushd . \
-#  && git clone --depth 1 https://github.com/antlr/antlr3.git \
-#  && cd antlr3 \
-#  && ls -la \
-#  && cp include/* /usr/include/ \
-#  && popd 
-
-RUN cd /home/docker \
+  python-pyparsing lksctp-tools protobuf libunwind python-yaml yaml-cpp thrift cmake antlr3' \
+  && cd /home/docker \
   && pacman -Rdd --noconfirm thrift \
   && wget -c 'http://ala.seblu.net/packages/t/thrift/thrift-0.9.1-3-x86_64.pkg.tar.xz' \
-  && pacman -U --noconfirm thrift-0.9.1-3-x86_64.pkg.tar.xz
-
-RUN cd /home/docker \
+  && pacman -U --noconfirm thrift-0.9.1-3-x86_64.pkg.tar.xz \
+  && cd /home/docker \
   && git clone --depth=50 --branch=master https://github.com/antlr/antlr3 \
   && cp antlr3/runtime/Cpp/include/* /usr/include/ 
-
-# remerge later
-RUN su docker -c 'pacaur -S --needed --noprogressbar --noedit --noconfirm cmake'
 
 RUN cd /home/docker \
   && git clone --depth=50 --branch=master https://github.com/scylladb/scylla \
@@ -74,8 +58,8 @@ RUN cd /home/docker/scylla/seastar/fmt \
   && git config user.email "imriss@ieee.org" \
   && git am < abbefd71666055daac9e14e78262620f9e845850.patch
 
-RUN echo `find / -name 'antlr3.hpp' 2>/dev/null` \
-  && echo `ls -la /usr/include/*.hpp`
+# RUN echo `find / -name 'antlr3.hpp' 2>/dev/null` \
+#  && echo `ls -la /usr/include/*.hpp`
 
 RUN cd /home/docker/scylla \
   && ./configure.py --mode=release --with=scylla --disable-xen --static-stdc++ --static-boost --static --cflags " -fvisibility=default" \
