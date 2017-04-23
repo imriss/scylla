@@ -63,6 +63,8 @@ RUN cd /home/docker \
   
 RUN cd /home/docker/scylla/seastar/fmt \
   && wget https://github.com/fmtlib/fmt/commit/abbefd71666055daac9e14e78262620f9e845850.patch \
+  && git config user.name "Reza Farrahi" \
+  && git config user.email "imriss@ieee.org" \
   && git am < abbefd71666055daac9e14e78262620f9e845850.patch
 
 RUN cd /home/docker/scylla \
