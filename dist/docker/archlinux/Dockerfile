@@ -66,7 +66,7 @@ RUN cd /home/docker/scylla \
   && ninja build/release/scylla -j1
   
 RUN cd / \
-  && echo `du / -hd 1` 
+  && echo `du /home/docker -hd 1` 
 
 ADD ./scylla_bashrc /scylla_bashrc
 RUN cat scylla_bashrc >> /etc/bashrc
