@@ -83,6 +83,9 @@ RUN mkdir -p /var/log/scylla
 ADD ./scylla-service.sh /scylla-service.sh
 ADD ./scylla-jmx-service.sh /scylla-jmx-service.sh
 
+RUN useradd -m scylla \
+  && echo "scylla:" | chpasswd -e
+
 ADD ./scyllasetup.py /scyllasetup.py
 ADD ./commandlineparser.py /commandlineparser.py
 ADD ./docker-entrypoint.py /docker-entrypoint.py
