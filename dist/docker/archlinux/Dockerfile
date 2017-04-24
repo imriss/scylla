@@ -84,7 +84,9 @@ ADD ./scylla-service.sh /scylla-service.sh
 ADD ./scylla-jmx-service.sh /scylla-jmx-service.sh
 
 RUN useradd -m scylla \
-  && echo "scylla:" | chpasswd -e
+  && echo "scylla:" | chpasswd -e \
+  && cd / \
+  && echo `du / -hd 1`
 
 ADD ./scyllasetup.py /scyllasetup.py
 ADD ./commandlineparser.py /commandlineparser.py
