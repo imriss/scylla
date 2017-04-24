@@ -65,9 +65,6 @@ RUN cd /home/docker/scylla \
   && ./configure.py --mode=release --with=scylla --disable-xen --static-stdc++ --static-boost --static --cflags " -fvisibility=default" \
   && ninja build/release/scylla -j1
   
-RUN cd / \
-  && echo `du /home/docker -hd 1` 
-
 ADD ./scylla_bashrc /scylla_bashrc
 RUN cat scylla_bashrc >> /etc/bashrc
 
@@ -85,7 +82,7 @@ ADD ./scylla-jmx-service.sh /scylla-jmx-service.sh
 
 RUN useradd -m scylla \
   && echo "scylla:" | chpasswd -e \
-  && cd / \
+  && rm -rd /home/docker/scylla /home/docker/antlr3 \
   && echo `du / -hd 1`
 
 ADD ./scyllasetup.py /scyllasetup.py
