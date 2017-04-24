@@ -7,6 +7,7 @@ cd "$d"
 echo "https://aur.archlinux.org/cgit/aur.git/snapshot/$p.tar.gz" 
 curl "https://aur.archlinux.org/cgit/aur.git/snapshot/$p.tar.gz" |tar xz
 cd "$p"
+sed -i -e 's=git://github.com/falconindy/cower=git+https://github.com/falconindy/cower.git=g' PKGBUILD
 echo "makepkg --skippgpcheck ${@##[^\-]*}"
 makepkg --skippgpcheck ${@##[^\-]*}
 echo "$d"
