@@ -43,7 +43,7 @@ RUN su docker -c 'pacaur -S --needed --noprogressbar --noedit --noconfirm superv
   && wget -c 'http://ala.seblu.net/packages/t/thrift/thrift-0.9.1-3-x86_64.pkg.tar.xz' \
   && pacman -U --noconfirm thrift-0.9.1-3-x86_64.pkg.tar.xz \
   && cd /home/docker \
-  && git clone --depth=50 --branch=master https://github.com/antlr/antlr3 \
+  && git clone --depth=1 --branch=master https://github.com/antlr/antlr3 \
   && cp antlr3/runtime/Cpp/include/* /usr/include/ 
 
 RUN cd /home/docker \
