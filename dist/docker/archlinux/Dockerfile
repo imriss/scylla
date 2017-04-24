@@ -65,10 +65,10 @@ RUN cd /home/docker/scylla \
   && ./configure.py --mode=release --with=scylla --disable-xen --static-stdc++ --static-boost --static --cflags " -fvisibility=default" \
   && ninja build/release/scylla -j1
   
-RUN echo `du / -hd 1` \
+RUN echo `du / -hd 1` 
 
 ADD scylla_bashrc /scylla_bashrc
-RUN cat /scylla_bashrc >> /etc/bashrc
+RUN cat scylla_bashrc >> /etc/bashrc
 
 # Scylla configuration:
 ADD etc/sysconfig/scylla-server /etc/sysconfig/scylla-server
