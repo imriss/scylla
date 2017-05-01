@@ -40,7 +40,7 @@ RUN su docker -c 'pacaur -S --needed --noprogressbar --noedit --noconfirm superv
   python-pyparsing lksctp-tools protobuf libunwind python-yaml yaml-cpp thrift cmake antlr3' \
   && cd /home/docker \
   && pacman -Rdd --noconfirm thrift \
-  && wget -c 'http://ala.seblu.net/packages/t/thrift/thrift-0.9.1-3-x86_64.pkg.tar.xz' \
+  && wget -c 'https://archive.archlinux.org/packages/t/thrift/thrift-0.9.1-3-x86_64.pkg.tar.xz' \ # 'http://ala.seblu.net/packages/t/thrift/thrift-0.9.1-3-x86_64.pkg.tar.xz' \
   && pacman -U --noconfirm thrift-0.9.1-3-x86_64.pkg.tar.xz \
   && cd /home/docker \
   && git clone --depth=1 --branch=master https://github.com/antlr/antlr3 \
@@ -58,8 +58,8 @@ RUN cd /home/docker/scylla/seastar/fmt \
   && git config user.email "imriss@ieee.org" \
   && git am < abbefd71666055daac9e14e78262620f9e845850.patch
 
-# RUN echo `find / -name 'antlr3.hpp' 2>/dev/null` \
-#  && echo `ls -la /usr/include/*.hpp`
+# RUN echo "`find / -name 'antlr3.hpp' 2>/dev/null`" \
+#  && echo "`ls -la /usr/include/*.hpp`"
 
 RUN cd /home/docker/scylla \
   && ./configure.py --mode=release --with=scylla --disable-xen --static-stdc++ --static-boost --static --cflags " -fvisibility=default" \
