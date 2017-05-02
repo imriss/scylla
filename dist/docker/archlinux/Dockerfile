@@ -21,7 +21,7 @@ RUN add-aur docker
 
 RUN cd /home \
   && chown docker docker \
-  && cd docker \
+  && cd docker/sandground \
   && su docker -c 'mkdir systemtap_tmp' \ 
   && cd systemtap_tmp \
   && su docker -c 'wget https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=systemtap-git -O PKGBUILD' \
@@ -30,7 +30,7 @@ RUN cd /home \
   && pacman -S --needed --noconfirm libdaemon nspr avahi elfutils nss \
   && su docker -c 'makepkg -si' 
 
-RUN sudo pacman -U /home/docker/systemtap_tmp/systemtap-git-2.7.1180.g4e0d00272-1-x86_64.pkg.tar --noconfirm \
+RUN sudo pacman -U /home/docker/sandground/systemtap_tmp/systemtap-git-2.7.1180.g4e0d00272-1-x86_64.pkg.tar --noconfirm \
   && su docker -c 'pacaur -S --needed --noprogressbar --noedit --noconfirm jre8-openjdk-headless jdk8-openjdk' \
   && archlinux-java set java-8-openjdk/jre 
 
@@ -38,15 +38,15 @@ RUN su docker -c 'pacaur -S --needed --noprogressbar --noedit --noconfirm superv
   boost ninja libantlr3c libyaml lz4 zlib \
   snappy jsoncpp gnutls ninja ragel libaio crypto++ xfsprogs numactl hwloc libpciaccess libxml2 \
   python-pyparsing lksctp-tools protobuf libunwind python-yaml yaml-cpp thrift cmake antlr3' \
-  && cd /home/docker \
+  && cd /home/docker/sandground \
   && pacman -Rdd --noconfirm thrift \
   && wget -c 'https://archive.archlinux.org/packages/t/thrift/thrift-0.9.1-3-x86_64.pkg.tar.xz' \ # 'http://ala.seblu.net/packages/t/thrift/thrift-0.9.1-3-x86_64.pkg.tar.xz' \
   && pacman -U --noconfirm thrift-0.9.1-3-x86_64.pkg.tar.xz \
-  && cd /home/docker \
+  && cd /home/docker/sandground \
   && git clone --depth=1 --branch=master https://github.com/antlr/antlr3 \
   && cp antlr3/runtime/Cpp/include/* /usr/include/ 
 
-RUN cd /home/docker \
+RUN cd /home/docker/sandground \
   && git clone --depth=50 --branch=master https://github.com/scylladb/scylla \
   && cd scylla \
   && git submodule sync --recursive \
@@ -61,7 +61,7 @@ RUN cd /home/docker/scylla/seastar/fmt \
 # RUN echo "`find / -name 'antlr3.hpp' 2>/dev/null`" \
 #  && echo "`ls -la /usr/include/*.hpp`"
 
-RUN cd /home/docker/scylla \
+RUN cd /home/docker/sandground/scylla \
   && ./configure.py --mode=release --with=scylla --disable-xen --static-stdc++ --static-boost --static --cflags " -fvisibility=default" \
   && ninja build/release/scylla -j1
   
@@ -82,7 +82,7 @@ ADD ./scylla-jmx-service.sh /scylla-jmx-service.sh
 
 RUN useradd -m scylla \
   && echo "scylla:" | chpasswd -e \
-  && rm -rd /home/docker/scylla /home/docker/antlr3 \
+  && rm -rd /home/docker/sandground \
   && echo `du /usr/lib -hd 1`
 
 ADD ./scyllasetup.py /scyllasetup.py
