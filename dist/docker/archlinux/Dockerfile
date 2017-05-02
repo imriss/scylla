@@ -53,7 +53,7 @@ RUN cd /home/docker/sandground \
   && git submodule sync --recursive \
   && git submodule update --init --recursive 
   
-RUN cd /home/docker/scylla/seastar/fmt \
+RUN cd /home/docker/sandground/scylla/seastar/fmt \
   && wget https://github.com/fmtlib/fmt/commit/abbefd71666055daac9e14e78262620f9e845850.patch \
   && git config user.name "Reza Farrahi" \
   && git config user.email "imriss@ieee.org" \
@@ -83,6 +83,11 @@ ADD ./scylla-jmx-service.sh /scylla-jmx-service.sh
 
 RUN useradd -m scylla \
   && echo "scylla:" | chpasswd -e \
+  && /bin/bash -c "comm -23 <(pacman -Qq) <(cat <(pactree -u scylla |sort) <(pactree -u pacman |sort) <(pactree -u sudo |sort) <(pacman -Qgq base | sort) |sort -u) | xargs pacman -Rdd --noconfirm" \
+  && pacman -Scc --noconfirm \
+  &&  rm /var/cache/pacman/pkg/* \
+  &&  rm -rd /root/.cargo/* \
+  && paccache -rf \
   && rm -rd /home/docker/sandground \
   && echo `du /usr/lib -hd 1`
 
