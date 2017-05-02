@@ -34,13 +34,14 @@ RUN sudo pacman -U /home/docker/sandground/systemtap_tmp/systemtap-git-2.7.1180.
   && su docker -c 'pacaur -S --needed --noprogressbar --noedit --noconfirm jre8-openjdk-headless jdk8-openjdk' \
   && archlinux-java set java-8-openjdk/jre 
 
+# 'http://ala.seblu.net/packages/t/thrift/thrift-0.9.1-3-x86_64.pkg.tar.xz' 
 RUN su docker -c 'pacaur -S --needed --noprogressbar --noedit --noconfirm supervisor dpkg \
   boost ninja libantlr3c libyaml lz4 zlib \
   snappy jsoncpp gnutls ninja ragel libaio crypto++ xfsprogs numactl hwloc libpciaccess libxml2 \
   python-pyparsing lksctp-tools protobuf libunwind python-yaml yaml-cpp thrift cmake antlr3' \
   && cd /home/docker/sandground \
   && pacman -Rdd --noconfirm thrift \
-  && wget -c 'https://archive.archlinux.org/packages/t/thrift/thrift-0.9.1-3-x86_64.pkg.tar.xz' \ # 'http://ala.seblu.net/packages/t/thrift/thrift-0.9.1-3-x86_64.pkg.tar.xz' \
+  && wget -c 'https://archive.archlinux.org/packages/t/thrift/thrift-0.9.1-3-x86_64.pkg.tar.xz' \ 
   && pacman -U --noconfirm thrift-0.9.1-3-x86_64.pkg.tar.xz \
   && cd /home/docker/sandground \
   && git clone --depth=1 --branch=master https://github.com/antlr/antlr3 \
