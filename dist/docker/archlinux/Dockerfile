@@ -83,7 +83,7 @@ ADD ./scylla-jmx-service.sh /scylla-jmx-service.sh
 
 RUN useradd -m scylla \
   && echo "scylla:" | chpasswd -e \
-  && /bin/bash -c "comm -23 <(pacman -Qq) <(cat <(pactree -u scylla |sort) <(pactree -u mpfr |sort) <(pactree -u pacman |sort) <(pactree -u sudo |sort) <(pacman -Qgq base | sort) |sort -u) | xargs pacman -Rdd --noconfirm" \
+  # && /bin/bash -c "comm -23 <(pacman -Qq) <(cat <(pactree -u scylla |sort) <(pactree -u mpfr |sort) <(pactree -u pacman |sort) <(pactree -u sudo |sort) <(pacman -Qgq base | sort) |sort -u) | xargs pacman -Rdd --noconfirm" \
   && pacman -Scc --noconfirm \
   &&  rm /var/cache/pacman/pkg/* \
   && paccache -rf \
