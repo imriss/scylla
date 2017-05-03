@@ -86,7 +86,6 @@ RUN useradd -m scylla \
   && /bin/bash -c "comm -23 <(pacman -Qq) <(cat <(pactree -u scylla |sort) <(pactree -u pacman |sort) <(pactree -u sudo |sort) <(pacman -Qgq base | sort) |sort -u) | xargs pacman -Rdd --noconfirm" \
   && pacman -Scc --noconfirm \
   &&  rm /var/cache/pacman/pkg/* \
-  &&  rm -rd /root/.cargo/* \
   && paccache -rf \
   && rm -rd /home/docker/sandground \
   && echo `du /usr/lib -hd 1`
